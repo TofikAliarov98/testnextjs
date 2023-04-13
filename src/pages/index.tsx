@@ -6,6 +6,39 @@ import styles from '@/styles/Home.module.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  const sendFormHandler = async () => {
+    console.log('data', {
+      content: 'This is my content',
+
+      attachment: 'file.png',
+    });
+
+    const reqHeaders = new Headers();
+
+    reqHeaders.append('Access-Control-Allow-Origin', '*');
+
+    const raw = JSON.stringify({
+      content: 'This is my content',
+
+      attachment: 'file.png',
+    });
+
+    const reqOptions = {
+      method: 'POST',
+
+      headers: reqHeaders,
+
+      body: raw,
+    };
+
+    fetch(
+      'https://hwowhyesqgaxfergz2ilimf3mq0dmlas.lambda-url.us-east-1.on.aws/',
+      reqOptions
+    )
+      .then(() => alert('sent successfully'))
+
+      .catch((error) => alert(error));
+  };
   return (
     <>
       <Head>
@@ -16,6 +49,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div className={styles.description}>
+          <button onClick={sendFormHandler}>TEST AWS</button>
           <p>
             Get started by editing&nbsp;
             <code className={styles.code}>src/pages/index.tsx</code>
